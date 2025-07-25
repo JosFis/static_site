@@ -6,7 +6,7 @@ class TextType(Enum):
     BOLD = "bold"
     ITALIC = "italic"
     LINK = "[anchor text](url)"
-    IMAGES = "![alt text](url)"
+    IMAGE = "![alt text](url)"
 
 class TextNode:
     def __init__(self, text_type: TextType, text: str, url: str = None):
@@ -35,7 +35,7 @@ class TextNode:
             return f"`{self.content}`"
         elif self.text_type == TextType.LINK:
             return f"[{self.content.split('](')[0]}]({self.content.split('](')[1]})"
-        elif self.text_type == TextType.IMAGES:
+        elif self.text_type == TextType.IMAGE:
             return f"![{self.content.split('](')[0]}]({self.content.split('](')[1]})"
         else:
             raise ValueError("Unsupported text type")

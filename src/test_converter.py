@@ -37,7 +37,7 @@ class TestConverter(unittest.TestCase):
         self.assertEqual(html_node.props["href"], "https://example.com")
     
     def test_image(self):
-        node = TextNode(TextType.IMAGES, "This is an image", "https://example.com/image.png")
+        node = TextNode(TextType.IMAGE, "This is an image", "https://example.com/image.png")
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, "img")
         self.assertEqual(html_node.props["src"], "https://example.com/image.png")
