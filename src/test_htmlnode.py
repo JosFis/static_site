@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -27,6 +27,22 @@ class TestHTMLNode(unittest.TestCase):
         # Uncomment the following line when to_html is implemented
         # self.assertEqual(node.to_html(), f'<div {expected_props}>Hello World</div>')
 
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_leaf_to_html_span(self):
+        node = LeafNode("span", "Inline text")
+        self.assertEqual(node.to_html(), "<span>Inline text</span>")
+    
+    def test_leaf_to_html_no_tag(self): 
+        node = LeafNode(value="Just text")
+        self.assertEqual(node.to_html(), "Just text")
+
+    def test_leaf_to_html_no_value(self):
+        node = LeafNode("div")
+        with self.assertRaises(ValueError):
+            node.to_html()
 
 if __name__ == "__main__":
     unittest.main()
