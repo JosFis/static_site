@@ -2,11 +2,10 @@ import unittest
 
 from textnode import TextNode, TextType
 
-
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
-        node = TextNode("This is a text node", TextType.BOLD)
-        node2 = TextNode("This is a text node", TextType.BOLD)
+        node = TextNode(TextType.BOLD, "This is a text node")
+        node2 = TextNode(TextType.BOLD, "This is a text node")
         self.assertEqual(node, node2)
     
     def test_not_equal_different_text(self):
@@ -25,13 +24,13 @@ class TestTextNode(unittest.TestCase):
         self.assertNotEqual(node, node2)
 
     def test_equal_none_url(self):
-        node = TextNode(TextType.PLAIN, "plain text", url=None)
-        node2 = TextNode(TextType.PLAIN, "plain text", url=None)
+        node = TextNode(TextType.TEXT, "plain text", url=None)
+        node2 = TextNode(TextType.TEXT, "plain text", url=None)
         self.assertEqual(node, node2)
 
     def test_not_equal_one_none_url(self):
-        node = TextNode(TextType.PLAIN, "plain text", url=None)
-        node2 = TextNode(TextType.PLAIN, "plain text", url="http://example.com")
+        node = TextNode(TextType.TEXT, "plain text", url=None)
+        node2 = TextNode(TextType.TEXT, "plain text", url="http://example.com")
         self.assertNotEqual(node, node2)
 
 

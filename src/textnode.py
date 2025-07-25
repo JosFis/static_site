@@ -1,7 +1,7 @@
 from enum import Enum
 
 class TextType(Enum):
-    PLAIN = "plain_text"
+    TEXT = "plain_text"
     BOLD = "**bold**"
     ITALIC = "_italic_"
     CODE = "`code`"
@@ -25,7 +25,7 @@ class TextNode:
         return f"TextNode({self.text_type}, {self.content}, {self.url})"
     
     def render(self) -> str:
-        if self.text_type == TextType.PLAIN:
+        if self.text_type == TextType.TEXT:
             return self.content
         elif self.text_type == TextType.BOLD:
             return f"**{self.content}**"
