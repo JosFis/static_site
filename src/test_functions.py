@@ -1,7 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType
-from functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_link, split_nodes_image
+from functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_link, split_nodes_image, text_to_textnodes
 
 class TestFunctions(unittest.TestCase):
     # split_nodes_delimiter
@@ -126,6 +126,33 @@ class TestFunctions(unittest.TestCase):
             ],
             new_nodes,
         )
+
+# text_to_textnodes
+    def test_text_to_textnodes(self):
+        text = "This is **bold** and _italic_ text with a `code block` and an ![image](https://i.imgur.com/zjjcJKZ.png) and a [link](https://www.google.com)"
+        new_nodes = text_to_textnodes(text)
+        
+        self.assertEqual(len(new_nodes), 10)
+        self.assertEqual(new_nodes[0].content, "This is ")
+        self.assertEqual(new_nodes[0].text_type, TextType.TEXT)
+        self.assertEqual(new_nodes[1].content, "bold")
+        self.assertEqual(new_nodes[1].text_type, TextType.BOLD)
+        self.assertEqual(new_nodes[2].content, " and ")
+        self.assertEqual(new_nodes[2].text_type, TextType.TEXT)
+        self.assertEqual(new_nodes[3].content, "italic")
+        self.assertEqual(new_nodes[3].text_type, TextType.ITALIC)
+        self.assertEqual(new_nodes[4].content, " text with a ")
+        self.assertEqual(new_nodes[4].text_type, TextType.TEXT)
+        self.assertEqual(new_nodes[5].content, "code block")
+        self.assertEqual(new_nodes[5].text_type, TextType.CODE)
+        self.assertEqual(new_nodes[6].content, " and an ")
+        self.assertEqual(new_nodes[6].text_type, TextType.TEXT)
+        self.assertEqual(new_nodes[7].content, "image")
+        self.assertEqual(new_nodes[7].text_type, TextType.IMAGE)
+        self.assertEqual(new_nodes[8].content, " and a ")
+        self.assertEqual(new_nodes[8].text_type, TextType.TEXT)
+        self.assertEqual(new_nodes[9].content, "link")
+        self.assertEqual(new_nodes[9].text_type, TextType.LINK)
 
 if __name__ == "__main__":
     unittest.main()
